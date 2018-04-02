@@ -109,9 +109,6 @@ class Interface(BaseInterface):
 
         subparsers = self.setup_parser(parser, "IJB-C database", docs)
 
-        from .query import Database
-        db = Database()
-
         # the "checkfiles" action
         parser = subparsers.add_parser('checkfiles', help=checkfiles.__doc__)
         parser.add_argument('-d', '--directory', help="if given, this path will be prepended to every entry returned.")

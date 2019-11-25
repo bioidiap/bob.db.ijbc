@@ -10,6 +10,7 @@ import os, sys
 import bob.db.ijbc
 import nose.tools
 import random
+from nose.plugins.attrib import attr
 
 # we create only a single instance of the database, to avoid loading file-lists over and over
 db = bob.db.ijbc.Database()
@@ -17,6 +18,7 @@ db = bob.db.ijbc.Database()
 
 # all the numbers from below have been estimated from the original protocol files using an external script
 
+@attr('slow')
 def test_clients():
     # The number of groups
     assert len(db.groups(protocol='1:1')) == 1
@@ -34,7 +36,7 @@ def test_clients():
         # number of models is only different for the covariates protocol
         assert len(db.model_ids(protocol=protocol)) == (140739 if protocol == "Covariates" else client_ids)
 
-
+@attr('slow')
 def test_verification():
     # protocol 1:1
     # .. number of probe templates
@@ -51,7 +53,7 @@ def test_verification():
     # .. all probe files
     assert len(db.objects(protocol="1:1", purposes='probe')) == 128876
 
-
+@attr('slow')
 def test_covariates():
     # protocol Covariates
     # .. number of unique probe templates (by accident identical to number of models)
@@ -90,6 +92,7 @@ def test_identification():
 
 """
 
+@attr('slow')
 def test_annotations():
     # Tests that the annotations are available for all files
     all_keys = set(['topleft', 'size', 'bottomright', 'nose'])
